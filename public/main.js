@@ -22,8 +22,6 @@ var renderChart = function() {
     }
 
     var dataset = {};
-    var hours = [];
-    var busQuantities = [];
 
     //Create dataset from response array (every item is a bus)
     //The dataset will contain the number of buses running each hour
@@ -40,17 +38,25 @@ var renderChart = function() {
         }
     })
 
+    //convert dataset to array of objects
+    var dataset = Object.keys(dataset).map(function(key) {
+        return { label: new Date(key), quantity: dataset[key] }
+    })
 
-    //map the dataset to the chart
-    Object.keys(dataset).map(function(key) {
-        var timeLabel = new Date(key)
-        var quantity = dataset[key]
-        addData(busChart, timeLabel, quantity)
+    var compare = function(a, b) {
+        if (a.label < b.label) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
+    dataset.sort(compare).forEach(function(data) {
+        addData(busChart, data.label, data.quantity)
     })
 
     //NOTE: may be better to "updateChart" here, but I think the animation looks messy...
 }
-
 
 var load = function() {
     if (busChart) {

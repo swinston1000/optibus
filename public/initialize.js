@@ -16,20 +16,12 @@ var addNewChart = function(label) {
                     }
                 }],
                 xAxes: [{
-                    type: 'time',
-                    unit: 'hour',
-                    unitStepSize: 1,
-                    time: {
-                        displayFormats: {
-                            'hour': 'MMM D, hA'
+                    ticks: {
+                        autoSkip: false,
+                        callback: function(value, index, values) {
+                            return new moment(value).format('MMM D, hA');
                         }
-                    },
-                    // ticks: {
-                    //     autoSkip: false,
-                    //     callback: function(value, index, values) {
-                    //         return new moment(value).format('MMM D, hA');
-                    //     }
-                    // }
+                    }
                 }]
             }
         }
