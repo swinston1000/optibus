@@ -15,13 +15,13 @@ var removeAllData = function(chart) {
 var renderChart = function() {
 
     if (this.status === 500) {
-        console.log(JSON.parse(this.response).message)
+        console.log(JSON.parse(this.response).message);
         return;
     }
 
     var dataset = {};
 
-    //Create dataset from response array (every item is a bus)
+    //Create dataset from response array (every element is a bus)
     //The dataset will contain the number of buses running each hour
     JSON.parse(this.response).forEach(function(bus) {
         var start = moment(bus.startTime).startOf('hour');
@@ -29,9 +29,9 @@ var renderChart = function() {
         for (i = 0; i <= (end - start); i++) {
             var busTime = start.add(i, 'hours');
             if (!dataset[busTime]) {
-                dataset[busTime] = 1
+                dataset[busTime] = 1;
             } else {
-                dataset[busTime]++
+                dataset[busTime]++;
             }
         }
     })
@@ -50,16 +50,15 @@ var renderChart = function() {
     }
 
     dataset.sort(compare).forEach(function(data) {
-        addData(busChart, data.label, data.quantity)
+        addData(busChart, data.label, data.quantity);
     })
 
     busChart.update();
-
 }
 
 var load = function() {
     if (busChart) {
-        removeAllData(busChart)
+        removeAllData(busChart);
     }
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", renderChart);
@@ -67,4 +66,4 @@ var load = function() {
     oReq.send();
 }
 
-load()
+load();
