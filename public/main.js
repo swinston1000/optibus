@@ -1,10 +1,8 @@
 var addData = function(chart, label, data) {
-
     chart.data.labels.push(label);
     chart.data.datasets.forEach((dataset) => {
         dataset.data.push(data);
     });
-    chart.update();
 }
 
 var removeAllData = function(chart) {
@@ -55,7 +53,8 @@ var renderChart = function() {
         addData(busChart, data.label, data.quantity)
     })
 
-    //NOTE: may be better to "updateChart" here, but I think the animation looks messy...
+    busChart.update();
+
 }
 
 var load = function() {
